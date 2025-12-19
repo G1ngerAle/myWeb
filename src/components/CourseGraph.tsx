@@ -31,7 +31,7 @@ interface ViewTransform {
 export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGraphProps) {
   const [graph, setGraph] = useState<GraphState | null>(null)
   const [, setTick] = useState(0) // used only to trigger React renders on simulation ticks
-  const simulationRef = useRef<d3.Simulation<SimulationNode, SimulationLink> | null>(null)
+  const simulationRef = useRef<d3.Simulation<SimulationNode> | null>(null)
   const svgRef = useRef<SVGSVGElement | null>(null)
   const expandedIdRef = useRef<string | null>(selectedCourseId ?? null)
 
