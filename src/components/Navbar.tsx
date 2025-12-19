@@ -10,7 +10,7 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/', key: 'nav.home' },
-    { path: '/courses', key: 'nav.courses' },
+    { path: '/taken-courses', key: 'nav.courses' },
     { path: '/projects', key: 'nav.projects' },
     { path: '/research', key: 'nav.research' },
     { path: '/contact', key: 'nav.contact' },

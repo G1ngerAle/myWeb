@@ -19,6 +19,8 @@ const translations: Record<Language, Record<string, string>> = {
     'home.tagline': 'Academic Researcher & Scholar',
     'home.intro': 'Welcome to my academic website. I am passionate about research and education, with a focus on advancing knowledge in my field. This site showcases my academic journey, projects, and research experiences.',
     'courses.title': 'Taken Courses',
+    'courses.graph.subtitle':
+      'An interactive view of how foundational and intermediate courses contribute to a recent, advanced course.',
     'courses.core': 'Core Courses',
     'courses.electives': 'Electives',
     'courses.placeholder': 'Course Name',
@@ -44,6 +46,8 @@ const translations: Record<Language, Record<string, string>> = {
     'home.tagline': 'Chercheur Académique & Universitaire',
     'home.intro': 'Bienvenue sur mon site web académique. Je suis passionné par la recherche et l\'éducation, avec un focus sur l\'avancement des connaissances dans mon domaine. Ce site présente mon parcours académique, mes projets et mes expériences de recherche.',
     'courses.title': 'Cours Suivis',
+    'courses.graph.subtitle':
+      'Une vue interactive montrant comment les cours de base et intermédiaires contribuent à un cours avancé récent.',
     'courses.core': 'Cours de Base',
     'courses.electives': 'Cours au Choix',
     'courses.placeholder': 'Nom du Cours',
