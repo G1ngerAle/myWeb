@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import type { CourseNode } from '../data/courses'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface CourseDetailOverlayProps {
   course: CourseNode
@@ -9,6 +10,7 @@ interface CourseDetailOverlayProps {
 // Using Framer Motion with a shared layoutId between the node and this overlay
 // gives us a smooth, shared-element style transition without manual keyframe math.
 export default function CourseDetailOverlay({ course, onClose }: CourseDetailOverlayProps) {
+  const { language, t } = useLanguage()
   return (
     <motion.div
       layoutId={`course-${course.id}`}
@@ -39,16 +41,16 @@ export default function CourseDetailOverlay({ course, onClose }: CourseDetailOve
         <div className="mb-4 text-sm text-text-secondary uppercase tracking-wide">
           {course.code}
         </div>
-        <h2 className="text-2xl sm:text-3xl font-semibold mb-4">{course.title}</h2>
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-4">{language === 'fr' ? course.title_fr : course.title}</h2>
         <p className="text-base sm:text-lg leading-relaxed text-text-secondary">
-          {course.description}
+          {language === 'fr' ? course.description_fr : course.description}
         </p>
 
         <div className="mt-6 text-sm text-text-secondary">
           <p>
             Tier:{' '}
             <span className="font-medium capitalize">
-              {course.tier === 'advanced' ? 'Advanced / Recent' : course.tier}
+              {course.tier === 'advanced' ? t('courses.graph.legend.advanced') : course.tier === 'intermediate' ? t('courses.graph.legend.intermediate') : t('courses.graph.legend.intro')}
             </span>
           </p>
           <p className="mt-2">

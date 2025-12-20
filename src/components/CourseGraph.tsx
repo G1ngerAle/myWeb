@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import * as d3 from 'd3-force'
 import { motion } from 'framer-motion'
 import { courseNodes, courseLinks, type CourseNode, type CourseLink } from '../data/courses'
+import { useLanguage } from '../contexts/LanguageContext'
 
 interface CourseGraphProps {
   onNodeClick: (course: CourseNode) => void
@@ -25,10 +26,20 @@ interface ViewTransform {
   k: number
 }
 
+// Helper functions to get bilingual course content
+const getCourseTitle = (node: CourseNode, lang: 'en' | 'fr'): string => {
+  return lang === 'fr' ? node.title_fr : node.title
+}
+
+const getCourseDescription = (node: CourseNode, lang: 'en' | 'fr'): string => {
+  return lang === 'fr' ? node.description_fr : node.description
+}
+
 // This component uses d3-force directly instead of a higher-level graph library
 // to keep the simulation in a stable ref and update node positions efficiently
 // without causing janky re-renders.
 export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGraphProps) {
+  const { language, t } = useLanguage()
   const [graph, setGraph] = useState<GraphState | null>(null)
   const [, setTick] = useState(0) // used only to trigger React renders on simulation ticks
   const simulationRef = useRef<d3.Simulation<SimulationNode> | null>(null)
@@ -286,6 +297,79 @@ export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGra
 
   return (
     <div className="relative h-[65vh] sm:h-[70vh] lg:h-[72vh] bg-surface border border-border rounded-xl shadow-sm overflow-hidden">
+      {/* Legend overlay - top-right */}
+      <div
+        className="absolute top-3 right-3 z-10 pointer-events-none"
+        style={{ pointerEvents: 'none' }}
+      >
+        <div
+          className="bg-surface/90 backdrop-blur-sm border border-border rounded-lg p-2.5 shadow-sm"
+          style={{
+            backgroundColor: 'var(--color-surface)',
+            opacity: 0.95,
+            borderColor: 'var(--color-border)',
+          }}
+        >
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-1.5">
+              <div
+                className="w-3 h-3 rounded-full flex-shrink-0"
+                style={{
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)',
+                }}
+              />
+              <span className="text-[10px] text-text-secondary leading-tight">{t('courses.graph.legend.intro')}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div
+                className="w-3 h-3 rounded-full flex-shrink-0"
+                style={{
+                  backgroundColor: 'var(--color-intermediate)',
+                }}
+              />
+              <span className="text-[10px] text-text-secondary leading-tight">{t('courses.graph.legend.intermediate')}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div
+                className="w-3 h-3 rounded-full flex-shrink-0"
+                style={{
+                  backgroundColor: 'var(--color-primary)',
+                }}
+              />
+              <span className="text-[10px] text-text-secondary leading-tight">{t('courses.graph.legend.advanced')}</span>
+            </div>
+          </div>
+          <p className="text-[9px] text-text-secondary/80 mt-1.5 leading-tight">
+            {t('courses.graph.legend.note')}
+          </p>
+        </div>
+      </div>
+
+      {/* Interaction instructions overlay - bottom-right */}
+      <div
+        className="absolute bottom-3 right-3 z-10 pointer-events-none"
+        style={{ pointerEvents: 'none' }}
+      >
+        <div
+          className="bg-surface/90 backdrop-blur-sm border border-border rounded-lg p-2.5 shadow-sm"
+          style={{
+            backgroundColor: 'var(--color-surface)',
+            opacity: 0.95,
+            borderColor: 'var(--color-border)',
+          }}
+        >
+          <div className="space-y-1 text-[10px] text-text-secondary leading-tight">
+            <p>{t('courses.graph.instructions.drag')}</p>
+            <p>{t('courses.graph.instructions.click')}</p>
+            <p>{t('courses.graph.instructions.collapse')}</p>
+            <p className="text-text-secondary/80 italic mt-1">
+              {t('courses.graph.instructions.dragNote')}
+            </p>
+          </div>
+        </div>
+      </div>
+
       <svg
         ref={svgRef}
         className="w-full h-full"
@@ -452,9 +536,9 @@ export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGra
                             marginBottom: 4,
                           }}
                         >
-                          {node.title}
+                          {getCourseTitle(node, language)}
                         </div>
-                        <div>{node.description}</div>
+                        <div>{getCourseDescription(node, language)}</div>
                       </div>
                     </foreignObject>
                   </g>
