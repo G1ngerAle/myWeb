@@ -21,7 +21,7 @@ export const courseNodes: CourseNode[] = [
     id: 'math133',
     code: 'MATH 133',
     title: 'Linear Algebra and Geometry',
-    description: 'Matrices, vector spaces, linear transformations, and eigenvalues.',
+    description: 'Fundamental linear algebra concepts including matrices, vector spaces, linear transformations, and eigenvalues.',
     tier: 'foundational',
   },
   {
@@ -70,7 +70,7 @@ export const courseNodes: CourseNode[] = [
     id: 'ecse205',
     code: 'ECSE 205',
     title: 'Probability and Statistics for Engineers',
-    description: 'Probability models, random variables, statistical inference.',
+    description: 'Probability models, random variables, statistical inference, and engineering applications.',
     tier: 'foundational',
   },
   {

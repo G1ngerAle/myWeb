@@ -139,9 +139,10 @@ export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGra
 
   // Base radius per tier, before accounting for label size
   const tierBaseRadius = (node: CourseNode): number => {
-    if (node.tier === 'advanced') return 30
-    if (node.tier === 'intermediate') return 22
-    return 14
+    if (node.tier === 'advanced') return 50
+    if (node.tier === 'intermediate') return 40
+    if (node.tier === 'foundational') return 25
+    return 10
   }
 
   // Collapsed radius: ensure label text is fully inside the circle with padding
