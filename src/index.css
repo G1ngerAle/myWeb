@@ -5,6 +5,7 @@
 :root {
   /* Light theme */
   --color-primary: #2563eb;
+  --color-intermediate: #a78bfa;
   --color-secondary: #64748b;
   --color-background: #ffffff;
   --color-surface: #f8fafc;

@@ -374,7 +374,13 @@ export default function CourseGraph({ onNodeClick, selectedCourseId }: CourseGra
 
                 <motion.circle
                   r={radius}
-                  fill={node.tier === 'advanced' ? 'var(--color-primary)' : 'var(--color-surface)'}
+                  fill={
+                    node.tier === 'advanced'
+                      ? 'var(--color-primary)'
+                      : node.tier === 'intermediate'
+                      ? 'var(--color-intermediate)'
+                      : 'var(--color-surface)'
+                  }
                   stroke={isSelected ? 'var(--color-primary)' : 'var(--color-border)'}
                   strokeWidth={isSelected ? 3 : 2}
                   style={{
